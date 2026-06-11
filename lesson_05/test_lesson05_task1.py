@@ -14,5 +14,4 @@ def test_navigation():
 
     assert driver.current_url == "https://httpbin.org/"
 
-
     driver.quit()

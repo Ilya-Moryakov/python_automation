@@ -15,4 +15,3 @@ def test_form_submission():
     assert driver.current_url != "https://httpbin.org/forms/post"
 
     driver.quit()
-    

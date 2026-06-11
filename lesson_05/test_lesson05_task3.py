@@ -29,6 +29,7 @@ def test_multiple_elements():
         if "1" in first_link_text:
             print(f"Текст первой ссылки ('{first_link_text}') содержит '1'.")
         else:
-            print(f"Текст первой ссылки ('{first_link_text}') не содержит '1'.")
+            print(f"Текст первой ссылки "
+                  f"('{first_link_text}') не содержит '1'.")
 
     driver.quit()
