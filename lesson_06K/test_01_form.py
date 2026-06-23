@@ -48,6 +48,12 @@ def test_form():
         By.CSS_SELECTOR, "button[type='submit']")
     submit_button.click()
 
+    wait = WebDriverWait(driver, 10)
+
+    wait.until(EC.text_to_be_present_in_element_attribute(
+        (By.ID, "zip-code"), "class", "alert-danger"
+    ))
+
     zip_code_alert = driver.find_element(By.ID, "zip-code")
     assert (
         "alert-danger" in zip_code_alert.get_attribute("class")

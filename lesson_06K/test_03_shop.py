@@ -9,6 +9,8 @@ def test_shop():
     driver.get("https://www.saucedemo.com/")
     driver.maximize_window()
 
+    wait = WebDriverWait(driver, 10)
+
     username_input = driver.find_element(By.ID, "user-name")
     username_input.send_keys("standard_user")
 
@@ -19,15 +21,17 @@ def test_shop():
     login_button = driver.find_element(By.NAME, "login-button")
     login_button.click()
 
-    driver.find_element(By.ID, "add-to-cart-sauce-labs-backpack").click()
+    wait.until(EC.element_to_be_clickable((By.ID, "add-to-cart-sauce-labs-backpack"))).click()
+
     driver.find_element(
         By.ID, "add-to-cart-sauce-labs-bolt-t-shirt").click()
     driver.find_element(By.ID, "add-to-cart-sauce-labs-onesie").click()
     driver.find_element(By.CLASS_NAME, "shopping_cart_link").click()
 
-    driver.find_element(
-        By.CSS_SELECTOR, ".btn.btn_action.btn_medium.checkout_button"
-    ).click()
+    checkout_button = wait.until(EC.element_to_be_clickable(
+        (By.CSS_SELECTOR, ".btn.btn_action.btn_medium.checkout_button")
+    ))
+    checkout_button.click()
 
     first_name_input = driver.find_element(By.ID, "first-name")
     first_name_input.send_keys("first")
@@ -39,6 +43,10 @@ def test_shop():
     postal_code_input.send_keys("123456")
 
     driver.find_element(By.ID, "continue").click()
+
+    wait.until(EC.text_to_be_present_in_element(
+        (By.CLASS_NAME, "summary_total_label"), "58.29"
+    ))
 
     price_total = driver.find_element(
         By.CLASS_NAME, "summary_total_label").text
